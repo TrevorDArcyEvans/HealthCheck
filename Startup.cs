@@ -39,10 +39,10 @@ namespace HealthCheck
       // Here is the GUI setup and history storage
       services.AddHealthChecksUI(options =>
       {
-        options.SetEvaluationTimeInSeconds(5); //Sets the time interval in which HealthCheck will be triggered
-        options.MaximumHistoryEntriesPerEndpoint(10); //Sets the maximum number of records displayed in history
-        options.AddHealthCheckEndpoint("Health Checks API", "/health"); //Sets the Health Check endpoint
-      }).AddInMemoryStorage(); //Here is the memory bank configuration
+        options.SetEvaluationTimeInSeconds(5); // Sets the time interval in which HealthCheck will be triggered
+        options.MaximumHistoryEntriesPerEndpoint(10); // Sets the maximum number of records displayed in history
+        options.AddHealthCheckEndpoint("Health Checks API", "/health"); // Sets the Health Check endpoint
+      }).AddInMemoryStorage(); // Here is the memory bank configuration
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,18 +65,18 @@ namespace HealthCheck
       {
         endpoints.MapControllers();
 
-        //Sets the health endpoint
+        // Sets the health endpoint
         endpoints.MapHealthChecks("/health");
       });
 
       //Sets Health Check dashboard options
       app.UseHealthChecks("/health", new HealthCheckOptions
       {
-        Predicate = p => true,
+        Predicate = _ => true,
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
       });
 
-      //Sets the Health Check dashboard configuration
+      // Sets the Health Check dashboard configuration
       app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
     }
   }
